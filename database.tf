@@ -17,12 +17,7 @@ module "aurora_mysql_rds_cluster" {
   region             = var.region
   application        = var.client_name
   availability_zones = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1]]
-  cluster_instances = {
-    "1" : {
-      "name" : "instance-1"
-      "instance_class" : var.db_instance_size
-    }
-  }
+  cluster_instances = {}
   database_name           = var.db_primary_db_name
   master_username         = var.db_master_username
   master_password         = var.db_password

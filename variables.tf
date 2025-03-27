@@ -139,55 +139,6 @@ variable "db_backup_retention_period" {
   type        = number
   description = "Backup retention period for the Database"
 }
-
-# EFS
-variable "enable_efs_access_point" {
-  description = "Deploy a EFS access point for persistent storage"
-  type        = bool
-  default     = true
-}
-
-variable "efs_creation_token" {
-  type        = string
-  description = "Token used for setting up the EFS"
-  sensitive   = true
-}
-
-variable "efs_posix_user_gid" {
-  default     = 802
-  description = "The group ID for the POSIX-compatible user."
-  type        = number
-}
-
-variable "efs_posix_user_uid" {
-  default     = 802
-  description = "The user ID for the POSIX-compatible user."
-  type        = number
-}
-
-variable "efs_owner_gid" {
-  default     = 802
-  description = "The group ID for the root directory owner."
-  type        = number
-}
-
-variable "efs_owner_uid" {
-  default     = 802
-  description = "The user ID for the root directory owner."
-  type        = number
-}
-
-variable "efs_permissions" {
-  default     = "0755"
-  description = "The permissions for the root directory."
-  type        = string
-}
-
-variable "efs_root_directory_path" {
-  description = "The permissions for the root directory."
-  type        = string
-}
-
 # Secret
 variable "enable_secret" {
   description = "Enable secrets to store passwords"

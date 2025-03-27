@@ -9,9 +9,5 @@
 #
 # --------------------------------------------------------------------------------------
 
-
-output "database_writer_endpoint" {
-  description = "Writer endpoint of the database instance."
-  value       = length(module.aurora_mysql_rds_cluster) > 0 ? module.aurora_mysql_rds_cluster[0].database_writer_endpoint : null
-  depends_on  = [module.aurora_mysql_rds_cluster]
-}
+db_password   = "KsrWso2#2024"
+secret_string = "KsrWso2#2024"
