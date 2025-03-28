@@ -38,7 +38,7 @@ bastion_cidr_block    = "172.17.10.0/24"
 management_subnet_az_cidr = "172.17.15.0/26"
 
 eks_default_nodepool_desired_size         = "2"
-eks_default_nodepool_max_size             = "3"
+eks_default_nodepool_max_size             = "5"
 eks_default_nodepool_min_size             = "1"
 eks_default_nodepool_max_unavailable      = "1"
 eks_instance_types                        = ["c4.xlarge"]
@@ -49,9 +49,6 @@ eks_external_lb_az2_subnet_cidr           = "172.17.20.0/24"
 eks_service_ipv4_cidr                     = "10.0.0.0/16"
 az_dmz_subnet_cidr_block                  = "172.17.12.0/26"
 kubernetes_version                        = "1.28"
-
-efs_creation_token      = "token-2"
-efs_root_directory_path = "/solr"
 
 # DB
 db_engine          = "aurora-mysql"
