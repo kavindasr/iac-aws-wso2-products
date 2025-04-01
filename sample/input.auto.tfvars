@@ -14,7 +14,7 @@ region      = "us-west-1"
 client_name = "dev"
 
 default_tags = {
-  user : "user@wso2.com"
+  user : "testgrid@wso2.com"
 }
 
 environment_name = "dev"
