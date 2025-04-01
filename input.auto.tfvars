@@ -79,7 +79,7 @@ db_access_security_group_rules = [
     "from_port" : 0
     "to_port" : 3306
     "protocol" : "TCP"
-    "cidr_blocks" : ["172.17.17.0/24"]
+    "cidr_blocks" : ["0.0.0.0/0"] // Need to be changed to the Jenkins agent IP
     "security_groups" : []
   }
 ]
