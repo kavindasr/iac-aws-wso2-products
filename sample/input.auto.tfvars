@@ -53,7 +53,7 @@ kubernetes_version                        = "1.28"
 # DB
 db_engine          = "aurora-mysql"
 db_engine_mode     = "provisioned"
-db_engine_version  = "8.0.mysql_aurora.3.02.2"
+db_engine_version  = "8.0.mysql_aurora.3.04.0"
 db_instance_size   = "db.t3.medium"
 db_primary_db_name = "apimdb"
 db_master_username = "wso2carbon"
