@@ -55,6 +55,10 @@ db_engine_options = [
   {
     "engine"   : "aurora-mysql"
     "version"  : "8.0.mysql_aurora.3.04.0"
+  },
+  {
+    "engine"   : "aurora-postgresql",
+    "version"  : "16.6"
   }
 ]
 db_engine_mode     = "provisioned"
