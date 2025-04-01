@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 module "aurora_mysql_rds_cluster" {
-  source             = "git::https://github.com/wso2/aws-terraform-modules.git//modules/aws/RDS-Aurora?ref=v1.12.0"
+  source             = "./modules/RDS-Aurora"
   count              = var.enable_database ? 1 : 0
   project            = var.project
   environment        = var.environment_name
@@ -27,6 +27,7 @@ module "aurora_mysql_rds_cluster" {
   db_subnet_group_name    = module.db_subnet_group.subnet_group_name
   backup_retention_period = var.db_backup_retention_period
   vpc_security_group_ids  = [module.db_security_group.security_group_id]
+  skip_final_snapshot     = true
 }
 
 module "db_subnet_group" {
