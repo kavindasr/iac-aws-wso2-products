@@ -79,25 +79,23 @@ variable "eks_external_lb_az2_subnet_cidr" {
 }
 
 # Database
-variable "enable_database" {
-  default     = true
-  description = "Set true to enable the creation of a MySQL database."
-  type        = bool
-}
-
-variable "db_engine" {
-  type        = string
-  description = "Database engine to be used"
-}
-
 variable "db_engine_mode" {
   type        = string
   description = "Database engine mode to be used"
 }
 
-variable "db_engine_version" {
-  type        = string
-  description = "Database engine version to be used"
+variable "db_engine_options" {
+  type = list(object({
+    engine  = string
+    version = string
+  }))
+  description = "List of database engine and version combinations available for selection"
+  default = [
+    {
+      engine  = "aurora-mysql"
+      version = "8.0.mysql_aurora.3.02.0"
+    }
+  ]
 }
 
 variable "db_instance_size" {

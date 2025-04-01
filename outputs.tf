@@ -9,9 +9,7 @@
 #
 # --------------------------------------------------------------------------------------
 
-
-output "database_writer_endpoint" {
-  description = "Writer endpoint of the database instance."
-  value       = length(module.aurora_mysql_rds_cluster) > 0 ? module.aurora_mysql_rds_cluster[0].database_writer_endpoint : null
-  depends_on  = [module.aurora_mysql_rds_cluster]
+output "database_writer_endpoints" {
+  description = "Writer endpoints of all database instances."
+  value       = { for k, v in module.aurora_rds_cluster : k => v.database_writer_endpoint }
 }

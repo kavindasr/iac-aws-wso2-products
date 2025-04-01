@@ -9,21 +9,21 @@
 #
 # --------------------------------------------------------------------------------------
 
-module "aurora_mysql_rds_cluster" {
+module "aurora_rds_cluster" {
   source             = "./modules/RDS-Aurora"
-  count              = var.enable_database ? 1 : 0
+  for_each           = { for opt in var.db_engine_options : "${opt.engine}-${opt.version}" => opt }
   project            = var.project
   environment        = var.environment_name
   region             = var.region
-  application        = var.client_name
+  application        = "${var.client_name}-${each.value.engine}"
   availability_zones = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1]]
-  cluster_instances = {}
-  database_name           = var.db_primary_db_name
-  master_username         = var.db_master_username
-  master_password         = var.db_password
-  engine                  = var.db_engine
-  engine_version          = var.db_engine_version
-  engine_mode             = var.db_engine_mode
+  cluster_instances  = {}
+  database_name      = var.db_primary_db_name
+  master_username    = var.db_master_username
+  master_password    = var.db_password
+  engine             = each.value.engine
+  engine_version     = each.value.version
+  engine_mode        = var.db_engine_mode
   db_subnet_group_name    = module.db_subnet_group.subnet_group_name
   backup_retention_period = var.db_backup_retention_period
   vpc_security_group_ids  = [module.db_security_group.security_group_id]
