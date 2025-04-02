@@ -28,6 +28,7 @@ module "aurora_rds_cluster" {
   backup_retention_period = var.db_backup_retention_period
   vpc_security_group_ids  = [module.db_security_group.security_group_id]
   skip_final_snapshot     = true
+  publicly_accessible = true
 }
 
 module "db_subnet_group" {
