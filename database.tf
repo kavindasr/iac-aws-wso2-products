@@ -19,7 +19,7 @@ module "aurora_rds_cluster" {
   availability_zones = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1]]
   cluster_instances = {
     "1" : {
-      "name" : "instance-1"
+      "name" : "1"
       "instance_class" : var.db_instance_size
     }
   }
