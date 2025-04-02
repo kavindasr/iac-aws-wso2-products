@@ -33,7 +33,7 @@ bastion_access_security_group_rules = [
 bastion_ami           = "ami-05af0694d2e8e6df3"
 bastion_instance_type = "t2.micro"
 bastion_ip_address    = "172.17.10.10"
-bastion_cidr_block    = "172.17.10.0/24"
+bastion_cidr_block    = "0.0.0.0/0"
 
 management_subnet_az_cidr = "172.17.15.0/26"
 
