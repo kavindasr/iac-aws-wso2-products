@@ -28,7 +28,7 @@ locals {
   container_memory_utilization_metric_name_usage = "container-memory-usage"
   container_restarts_metric_name_usage           = "container_number_of_restarts"
 
-  cloud_watch_average_statistic_string     = "Average"
-  cloud_watch_sum_statistic_string         = "Sum"
+  cloud_watch_average_statistic_string = "Average"
+  cloud_watch_sum_statistic_string     = "Sum"
   cloud_watch_gte_metrics_threshold_string = "GreaterThanOrEqualToThreshold"
 }
