@@ -74,8 +74,8 @@ Please ensure the secrets.tfvars file is kept secure and is not committed to you
 | <a name="module_eks_cluster_node_memory_utilization_warning_alert"></a> [eks\_cluster\_node\_memory\_utilization\_warning\_alert](#module\_eks\_cluster\_node\_memory\_utilization\_warning\_alert) | git::https://github.com/wso2/aws-terraform-modules.git//modules/aws/Metric-Alarm | n/a |
 | <a name="module_endpoint_security_group"></a> [endpoint\_security\_group](#module\_endpoint\_security\_group) | git::https://github.com/wso2/aws-terraform-modules.git//modules/aws/Security-Group | n/a |
 | <a name="module_internet_gateway"></a> [internet\_gateway](#module\_internet\_gateway) | git::https://github.com/wso2/aws-terraform-modules.git//modules/aws/Gateway | n/a |
-| <a name="module_nat_gateway_subnet"></a> [internet\_gateway\_subnet](#module\_internet\_gateway\_subnet) | git::https://github.com/wso2/aws-terraform-modules.git//modules/aws/VPC-Subnet | n/a |
-| <a name="module_nat_gateway_subnet_routes"></a> [internet\_gateway\_subnet\_routes](#module\_internet\_gateway\_subnet\_routes) | git::https://github.com/wso2/aws-terraform-modules.git//modules/aws/VPC-Subnet-Routes | n/a |
+| <a name="module_public_subnet_1"></a> [internet\_gateway\_subnet](#module\_internet\_gateway\_subnet) | git::https://github.com/wso2/aws-terraform-modules.git//modules/aws/VPC-Subnet | n/a |
+| <a name="module_public_subnet_1_routes"></a> [internet\_gateway\_subnet\_routes](#module\_internet\_gateway\_subnet\_routes) | git::https://github.com/wso2/aws-terraform-modules.git//modules/aws/VPC-Subnet-Routes | n/a |
 | <a name="module_management_az_subnet"></a> [management\_az\_subnet](#module\_management\_az\_subnet) | git::https://github.com/wso2/aws-terraform-modules.git//modules/aws/VPC-Subnet | n/a |
 | <a name="module_nat_gateway"></a> [nat\_gateway](#module\_nat\_gateway) | git::https://github.com/wso2/aws-terraform-modules.git//modules/aws/nat_gateway | n/a |
 | <a name="module_secret"></a> [secret](#module\_secret) | git::https://github.com/wso2/aws-terraform-modules.git//modules/aws/Secret-Manager-Secret | n/a |

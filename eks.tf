@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 module "eks_cluster" {
-  source                    = "git::https://github.com/wso2/aws-terraform-modules.git//modules/aws/EKS-Cluster?ref=v1.12.0"
+  source                    = "./modules/EKS-Cluster"
   project                   = var.project
   environment               = var.environment_name
   region                    = var.region
@@ -20,37 +20,17 @@ module "eks_cluster" {
   kubernetes_version        = var.kubernetes_version
   service_ipv4_cidr         = var.eks_service_ipv4_cidr
   enabled_cluster_log_types = ["audit", "controllerManager", "scheduler"]
-  subnet_details = [
-    {
-      "availability_zone" : data.aws_availability_zones.available.names[0]
-      "cidr_block" : var.eks_availability_zone_1_subnet_cidr_block
-      "custom_routes" : [
-        {
-          "cidr_block" = "0.0.0.0/0"
-          "ep_type"    = "nat_gateway_id"
-          "ep_id"      = module.nat_gateway.nat_gateway_id
-        }
-      ]
-    },
-    {
-      "availability_zone" : data.aws_availability_zones.available.names[1]
-      "cidr_block" : var.eks_availability_zone_2_subnet_cidr_block
-      "custom_routes" : [
-        {
-          "cidr_block" = "0.0.0.0/0"
-          "ep_type"    = "nat_gateway_id"
-          "ep_id"      = module.nat_gateway.nat_gateway_id
-        }
-      ]
-    }
-  ]
+  public_subnets = [module.public_subnet_1.subnet_id, module.public_subnet_2.subnet_id]
+  endpoint_private_access = false
+  endpoint_public_access  = true
+  public_access_cidrs     = ["0.0.0.0/0"]
 }
 
 module "eks_cluster_node_group" {
   source           = "git::https://github.com/wso2/aws-terraform-modules.git//modules/aws/EKS-Node-Group?ref=v1.12.0"
   eks_cluster_name = module.eks_cluster.eks_cluster_name
   node_group_name  = "np"
-  subnet_ids       = module.eks_cluster.eks_subnet_ids
+  subnet_ids       = [module.public_subnet_1.subnet_id, module.public_subnet_2.subnet_id]
   desired_size     = var.eks_default_nodepool_desired_size
   max_size         = var.eks_default_nodepool_max_size
   min_size         = var.eks_default_nodepool_min_size
@@ -60,28 +40,5 @@ module "eks_cluster_node_group" {
   instance_types   = var.eks_instance_types
   depends_on = [
     module.eks_cluster
-  ]
-}
-
-module "eks_cluster_bastion_access_sg_rule" {
-  source            = "git::https://github.com/wso2/aws-terraform-modules.git//modules/aws/Security-Group-Rule?ref=v1.12.0"
-  security_group_id = module.eks_cluster.eks_security_group_rule_id
-  rules = [
-    {
-      "direction" : "ingress"
-      "from_port" : 6443
-      "to_port" : 6443
-      "protocol" : "TCP"
-      "cidr_blocks" : [var.bastion_cidr_block]
-      "security_groups" : []
-    },
-    {
-      "direction" : "ingress"
-      "from_port" : 443
-      "to_port" : 443
-      "protocol" : "TCP"
-      "cidr_blocks" : [var.bastion_cidr_block]
-      "security_groups" : []
-    }
   ]
 }

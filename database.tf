@@ -36,7 +36,7 @@ module "db_subnet_group" {
   environment = var.environment_name
   region      = var.region
   application = var.client_name
-  subnet_ids  = [module.db_az1_subnet.subnet_id, module.db_az2_subnet.subnet_id]
+  subnet_ids  = [module.public_subnet_1.subnet_id, module.public_subnet_2.subnet_id]
 }
 
 module "db_security_group" {
@@ -52,30 +52,4 @@ module "db_security_group" {
   depends_on = [
     module.vpc
   ]
-}
-
-module "db_az1_subnet" {
-  source            = "git::https://github.com/wso2/aws-terraform-modules.git//modules/aws/VPC-Subnet?ref=v1.12.0"
-  project           = var.project
-  environment       = var.environment_name
-  region            = var.region
-  application       = join("-", [var.client_name, "db"])
-  availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block        = var.db_az1_subnet_cidr_block
-  vpc_id            = module.vpc.vpc_id
-  custom_routes     = []
-  tags              = var.default_tags
-}
-
-module "db_az2_subnet" {
-  source            = "git::https://github.com/wso2/aws-terraform-modules.git//modules/aws/VPC-Subnet?ref=v1.12.0"
-  project           = var.project
-  environment       = var.environment_name
-  region            = var.region
-  application       = join("-", [var.client_name, "db"])
-  availability_zone = data.aws_availability_zones.available.names[1]
-  cidr_block        = var.db_az2_subnet_cidr_block
-  vpc_id            = module.vpc.vpc_id
-  custom_routes     = []
-  tags              = var.default_tags
 }
