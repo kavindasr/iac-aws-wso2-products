@@ -88,12 +88,14 @@ variable "db_engine_options" {
   type = list(object({
     engine  = string
     version = string
+    port    = number
   }))
   description = "List of database engine and version combinations available for selection"
   default = [
     {
       engine  = "aurora-mysql"
       version = "8.0.mysql_aurora.3.02.0"
+      port    = 3306
     }
   ]
 }
