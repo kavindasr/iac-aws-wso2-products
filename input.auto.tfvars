@@ -55,10 +55,12 @@ db_engine_options = [
   {
     "engine"   : "aurora-mysql"
     "version"  : "8.0.mysql_aurora.3.04.0"
+    "port"     : 3306
   },
   {
-    "engine"   : "aurora-postgresql",
+    "engine"   : "aurora-postgresql"
     "version"  : "16.6"
+    "port"     : 5432
   }
 ]
 db_engine_mode     = "provisioned"
@@ -77,9 +79,9 @@ db_access_security_group_rules = [
   {
     "direction" : "ingress"
     "from_port" : 0
-    "to_port" : 3306
+    "to_port" : 5432
     "protocol" : "TCP"
-    "cidr_blocks" : ["172.17.16.0/24"]
+    "cidr_blocks" : ["0.0.0.0/0"]
     "security_groups" : []
   },
   {
