@@ -20,17 +20,40 @@ module "eks_cluster" {
   kubernetes_version        = var.kubernetes_version
   service_ipv4_cidr         = var.eks_service_ipv4_cidr
   enabled_cluster_log_types = ["audit", "controllerManager", "scheduler"]
-  public_subnets = [module.public_subnet_1.subnet_id, module.public_subnet_2.subnet_id]
   endpoint_private_access = false
   endpoint_public_access  = true
   public_access_cidrs     = ["0.0.0.0/0"]
+  subnet_details = [
+    {
+      "availability_zone" : data.aws_availability_zones.available.names[0]
+      "cidr_block" : var.eks_availability_zone_1_subnet_cidr_block
+      "custom_routes" : [
+        {
+          "cidr_block" = "0.0.0.0/0"
+          "ep_type"    = "nat_gateway_id"
+          "ep_id"      = module.nat_gateway.nat_gateway_id
+        }
+      ]
+    },
+    {
+      "availability_zone" : data.aws_availability_zones.available.names[1]
+      "cidr_block" : var.eks_availability_zone_2_subnet_cidr_block
+      "custom_routes" : [
+        {
+          "cidr_block" = "0.0.0.0/0"
+          "ep_type"    = "nat_gateway_id"
+          "ep_id"      = module.nat_gateway.nat_gateway_id
+        }
+      ]
+    }
+  ]
 }
 
 module "eks_cluster_node_group" {
   source           = "git::https://github.com/wso2/aws-terraform-modules.git//modules/aws/EKS-Node-Group?ref=v1.12.0"
   eks_cluster_name = module.eks_cluster.eks_cluster_name
   node_group_name  = "np"
-  subnet_ids       = [module.public_subnet_1.subnet_id, module.public_subnet_2.subnet_id]
+  subnet_ids       = module.eks_cluster.eks_subnet_ids
   desired_size     = var.eks_default_nodepool_desired_size
   max_size         = var.eks_default_nodepool_max_size
   min_size         = var.eks_default_nodepool_min_size

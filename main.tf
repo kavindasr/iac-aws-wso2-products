@@ -34,6 +34,48 @@ module "internet_gateway" {
   ]
 }
 
+module "nat_gateway_subnet" {
+  source            = "git::https://github.com/wso2/aws-terraform-modules.git//modules/aws/VPC-Subnet?ref=v1.12.0"
+  project           = var.project
+  environment       = var.environment_name
+  region            = var.region
+  application       = join("-", [var.client_name, "dmz"])
+  availability_zone = data.aws_availability_zones.available.names[1]
+  cidr_block        = var.az_dmz_subnet_cidr_block
+  vpc_id            = module.vpc.vpc_id
+  custom_routes     = []
+  tags              = merge(var.default_tags, { "kubernetes.io/role/elb" : 1 })
+}
+
+module "nat_gateway_subnet_routes" {
+  source         = "git::https://github.com/wso2/aws-terraform-modules.git//modules/aws/VPC-Subnet-Routes?ref=v1.12.0"
+  route_table_id = module.nat_gateway_subnet.route_table_id
+  routes = [
+    {
+      "cidr_block" = "0.0.0.0/0"
+      "ep_type"    = "gateway_id"
+      "ep_id"      = module.internet_gateway.gateway_id
+    }
+  ]
+  depends_on = [
+    module.internet_gateway
+  ]
+}
+
+module "nat_gateway" {
+  source      = "git::https://github.com/wso2/aws-terraform-modules.git//modules/aws/NAT-Gateway?ref=v1.12.0"
+  project     = var.project
+  environment = var.environment_name
+  region      = var.region
+  application = var.client_name
+  tags        = var.default_tags
+  subnet_id   = module.nat_gateway_subnet.subnet_id
+
+  depends_on = [
+    module.internet_gateway
+  ]
+}
+
 module "public_subnet_1" {
   source            = "git::https://github.com/wso2/aws-terraform-modules.git//modules/aws/VPC-Subnet?ref=v1.12.0"
   project           = var.project
