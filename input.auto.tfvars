@@ -57,11 +57,11 @@ db_engine_options = [
     "version"  : "8.0.mysql_aurora.3.04.0"
     "port"     : 3306
   },
-  {
-    "engine"   : "aurora-postgresql"
-    "version"  : "16.6"
-    "port"     : 5432
-  }
+  # {
+  #   "engine"   : "aurora-postgresql"
+  #   "version"  : "16.6"
+  #   "port"     : 5432
+  # }
 ]
 db_engine_mode     = "provisioned"
 db_instance_size   = "db.t3.medium"
