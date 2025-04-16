@@ -93,7 +93,7 @@ resource "aws_rds_cluster_instance" "cluster_instances" {
   engine_version     = aws_rds_cluster.rds_cluster.engine_version
 
   custom_iam_instance_profile = var.cluster_custom_iam_instance_profile == null ? each.value.custom_iam_instance_profile : var.cluster_custom_iam_instance_profile
-  db_parameter_group_name     = var.db_cluster_parameter_group_name == null ? each.value.db_parameter_group_name : var.db_instance_parameter_group_name
+  db_parameter_group_name     = var.db_instance_parameter_group_name
 
   monitoring_interval          = var.cluster_common_monitoring_interval == null ? each.value.monitoring_interval : var.cluster_common_monitoring_interval
   monitoring_role_arn          = var.cluster_common_monitoring_role_arn == null ? each.value.monitoring_role_arn : var.cluster_common_monitoring_role_arn

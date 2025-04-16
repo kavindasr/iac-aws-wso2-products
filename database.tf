@@ -19,6 +19,17 @@ resource "aws_db_parameter_group" "mysql-pg" {
   }
 }
 
+resource "aws_rds_cluster_parameter_group" "mysql-cluster-pg" {
+  name        = "rds-cluster-pg"
+  family      = "aurora-mysql8.0"
+  description = "RDS default cluster parameter group"
+
+  parameter {
+    name  = "max_connections"
+    value = "540"
+  }
+}
+
 module "aurora_rds_cluster" {
   source             = "./modules/RDS-Aurora"
   for_each           = { for opt in var.db_engine_options : "${opt.engine}-${opt.version}" => opt }
@@ -46,6 +57,7 @@ module "aurora_rds_cluster" {
   skip_final_snapshot     = true
   publicly_accessible = true
   db_instance_parameter_group_name = each.value.engine == "aurora-mysql" ? aws_db_parameter_group.mysql-pg.name : null
+  db_cluster_parameter_group_name = aws_rds_cluster_parameter_group.mysql-cluster-pg.name
 }
 
 module "db_subnet_group" {
