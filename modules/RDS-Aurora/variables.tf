@@ -12,7 +12,7 @@
 variable "allow_major_version_upgrade" {
   description = "Allow major version upgrade"
   type        = bool
-  default     = false
+  default     = true
 }
 variable "availability_zones" {
   description = "Availability zones"
