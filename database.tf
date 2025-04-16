@@ -15,7 +15,7 @@ resource "aws_db_parameter_group" "mysql-pg" {
 
   parameter {
     name  = "max_connections"
-    value = "340"
+    value = "540"
   }
 }
 
