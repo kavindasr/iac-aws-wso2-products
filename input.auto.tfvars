@@ -64,7 +64,7 @@ db_engine_options = [
   # }
 ]
 db_engine_mode     = "provisioned"
-db_instance_size   = "db.t3.medium"
+db_instance_size   = "db.m4.large"
 db_primary_db_name = "apimdb"
 db_master_username = "wso2carbon"
 db_access_security_group_rules = [
