@@ -60,7 +60,8 @@ resource "aws_rds_cluster_parameter_group" "mysql-cluster-pg" {
 #   db_cluster_parameter_group_name = aws_rds_cluster_parameter_group.mysql-cluster-pg.name
 # }
 
-module "rds_instance" {
+module "aurora_rds_cluster" {
+  for_each           = { for opt in var.db_engine_options : "${opt.engine}-${opt.version}" => opt }
   source             = "./modules/RDS"
   project            = var.project
   environment        = var.environment_name
