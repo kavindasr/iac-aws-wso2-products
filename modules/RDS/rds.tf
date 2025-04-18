@@ -32,7 +32,7 @@ resource "aws_db_instance" "db_instance" {
 
   engine         = var.engine
   engine_version = var.engine_version
-  instance_class = "db.md5.large" 
+  instance_class = "db.m5.large" 
 
   db_name                = var.database_name
   username               = var.master_username
