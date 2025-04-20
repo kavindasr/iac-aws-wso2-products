@@ -79,6 +79,7 @@ module "aurora_rds_cluster" {
   vpc_security_group_ids  = [module.db_security_group.security_group_id]
   skip_final_snapshot     = true
   publicly_accessible     = true
+  db_instance_parameter_group_name = aws_db_parameter_group.mysql-pg.name
 }
 
 module "db_subnet_group" {
