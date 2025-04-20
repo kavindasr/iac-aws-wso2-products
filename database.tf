@@ -11,7 +11,7 @@
 
 resource "aws_db_parameter_group" "mysql-pg" {
   name   = "rds-pg"
-  family = "aurora-mysql5.7"
+  family = "mysql5.7"
 
   parameter {
     name  = "max_connections"
@@ -19,16 +19,16 @@ resource "aws_db_parameter_group" "mysql-pg" {
   }
 }
 
-resource "aws_rds_cluster_parameter_group" "mysql-cluster-pg" {
-  name        = "rds-cluster-pg"
-  family      = "aurora-mysql5.7"
-  description = "RDS default cluster parameter group"
+# resource "aws_rds_cluster_parameter_group" "mysql-cluster-pg" {
+#   name        = "rds-cluster-pg"
+#   family      = "aurora-mysql5.7"
+#   description = "RDS default cluster parameter group"
 
-  parameter {
-    name  = "max_connections"
-    value = "540"
-  }
-}
+#   parameter {
+#     name  = "max_connections"
+#     value = "540"
+#   }
+# }
 
 # module "aurora_rds_cluster" {
 #   source             = "./modules/RDS-Aurora"
