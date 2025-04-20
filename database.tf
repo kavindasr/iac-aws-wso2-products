@@ -71,7 +71,7 @@ module "aurora_rds_cluster" {
   project            = var.project
   environment        = var.environment_name
   region             = var.region
-  application        = var.client_name
+  application        = each.value.engine
   database_port      = each.value.port
   availability_zones = sort(slice(data.aws_availability_zones.available.names, 0, 2))
   database_name      = var.db_primary_db_name
