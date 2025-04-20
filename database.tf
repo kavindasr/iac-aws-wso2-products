@@ -20,7 +20,7 @@ resource "aws_db_parameter_group" "mysql-pg" {
 
   parameter {
     name  = "require_secure_transport"
-    value = "1"
+    value = "0"
     }
 }
 
