@@ -72,19 +72,19 @@ module "aurora_rds_cluster" {
   environment        = var.environment_name
   region             = var.region
   application        = var.client_name
-  database_port      = 3306
+  database_port      = each.value.port
   availability_zones = sort(slice(data.aws_availability_zones.available.names, 0, 2))
   database_name      = var.db_primary_db_name
   master_username    = var.db_master_username
   master_password    = var.db_password
-  engine             = "mysql"
-  engine_version     = "5.7"
+  engine             = each.value.engine
+  engine_version     = each.value.version
   db_subnet_group_name    = module.db_subnet_group.subnet_group_name
   backup_retention_period = var.db_backup_retention_period
   vpc_security_group_ids  = [module.db_security_group.security_group_id]
   skip_final_snapshot     = true
   publicly_accessible     = true
-  db_instance_parameter_group_name = aws_db_parameter_group.mysql-pg.name
+  db_instance_parameter_group_name = each.value.engine == "mysql" ? aws_db_parameter_group.mysql-pg.name : null
 }
 
 module "db_subnet_group" {
