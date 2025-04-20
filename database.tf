@@ -17,6 +17,11 @@ resource "aws_db_parameter_group" "mysql-pg" {
     name  = "max_connections"
     value = "540"
   }
+
+  parameter {
+    name  = "require_secure_transport"
+    value = "1"
+    }
 }
 
 # resource "aws_rds_cluster_parameter_group" "mysql-cluster-pg" {
