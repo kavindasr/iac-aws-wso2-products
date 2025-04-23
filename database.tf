@@ -10,7 +10,7 @@
 # --------------------------------------------------------------------------------------
 
 resource "aws_db_parameter_group" "mysql-pg" {
-  name   = "rds-pg"
+  name   = "${var.project}-${var.environment_name}-rds-pg"
   family = "mysql5.7"
 
   parameter {
