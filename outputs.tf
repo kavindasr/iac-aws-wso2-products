@@ -13,3 +13,18 @@ output "database_writer_endpoints" {
   description = "Writer endpoints of all database instances."
   value       = { for k, v in module.aurora_rds_cluster : k => v.database_writer_endpoint }
 }
+
+output "ecr_wso2am_acp_url" {
+  description = "ECR for WSO2 API Manager ACP"
+  value       = module.ecr-wso2am-acp.ecr_url
+}
+
+output "ecr_wso2am_acp_tm_url" {
+  description = "ECR for WSO2 API Manager TM"
+  value       = module.ecr-wso2am-tm.ecr_url
+}
+
+output "ecr_wso2am_universal_gw_url" {
+  description = "ECR for WSO2 API Manager Universal Gateway"
+  value       = module.ecr-wso2am-universal-gw.ecr_url
+}
