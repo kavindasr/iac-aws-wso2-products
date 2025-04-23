@@ -11,6 +11,7 @@
 
 resource "aws_ecr_repository" "ecr_repository" {
   name = join("-", [var.project, var.application])
+  force_delete = true
   tags = var.tags
 }
 
